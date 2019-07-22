@@ -1,23 +1,22 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import Index from './views/Index'
-import Login from "./views/Login";
+import Router from 'vue-router' 
+
 
 Vue.use(Router)
 
-export default new Router({
+const router= new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
       name: 'Index',
-      component: Index
+      component: ()=>import ( "./views/Index")
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: ()=>import ( "./views/Login")
     },
     // {
     //   path: '/about',
@@ -29,3 +28,15 @@ export default new Router({
     // }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  const isLoading = localStorage.ele_login ? true : false
+  if (to.path == '/login') {
+    next()
+  } else {
+    //判断是否在登录状态下
+    isLoading?next():next('/login')
+  }
+})
+
+export default router

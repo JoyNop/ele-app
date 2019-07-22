@@ -1,13 +1,31 @@
 <template>
-  <div class='login'>
-    登录
+  <div class="login">
+    <div class="logo">
+      <img src="../assets/logo.jpg" alt="my login image" />
+    </div>
+    <InputGroup type="number" v-model="phone" placeholder="手机号" ：btnTitle="btnTitle" error=/>
   </div>
 </template>
 
+
+
 <script>
+import InputGroup from "../components/InputGroup";
 export default {
-  name:'login'
-}
+  name: "login",
+  data() {
+    return {
+      phone: "",
+      verifyCode: "",
+      errors: {},
+      btnTitle: "获取验证码",
+      disable: false
+    };
+  },
+  components: {
+    InputGroup
+  }
+};
 </script>
 
 
